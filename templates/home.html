@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-4">
+  <h1>Contact List</h1>
+  <form method="get" class="mb-4">
+    <div class="input-group">
+      <input
+        type="text"
+        name="q"
+        class="form-control"
+        placeholder="Search by name or email"
+      />
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for contact in contacts %}
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="{% url 'contact_detail' contact.pk %}"
+              >{{ contact.first_name }}</a
+            >
+          </h5>
+          <p class="card-text">Email: {{ contact.email }}</p>
+          <p class="card-text">Phone: {{ contact.phone_number }}</p>
+        </div>
+        <div class="card-footer">
+          <a
+            href="{% url 'edit_contact' contact.pk %}"
+            class="btn btn-sm btn-warning"
+            >Edit</a
+          >
+          <a
+            href="{% url 'delete_contact' contact.pk %}"
+            class="btn btn-sm btn-danger"
+            >Delete</a
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
